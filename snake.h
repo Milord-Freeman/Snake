@@ -18,6 +18,7 @@ public:
     enum directions{UP, DOWN, LEFT, RIGHT};
 
     std::vector<segment> getBody();
+    segment getHead();
     directions getDirection();
     int setDirection(directions);
     segment getApple();
@@ -29,10 +30,13 @@ public:
 private:
     std::vector<segment> body;
     directions direction;
-    segment apple;
+    std::vector<segment> apples;
     map ourMap;
+
     int setWight(int);
     int setHeight(int);
+    bool isApple(segment);
+    bool isBorder(segment);
 
 };
 
