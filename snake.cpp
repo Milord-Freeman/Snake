@@ -73,15 +73,15 @@ int Snake::nextStep(Snake::directions direction)
 
 int Snake::drawMap()
 {
-    for (int h = 0; h < ourMap.height; h++){
-        for (int w = 0; w < ourMap.widht; w++){
+    for (int h = 0; h <= ourMap.height; h++){
+        for (int w = 0; w <= ourMap.widht; w++){
             segment currentSegment;
             currentSegment.x = h;
             currentSegment.y = w;
-            if (isBorder(currentSegment)) cout << "B";
-            else if (isBody(currentSegment)) cout << "O";
-            else if (isApple(currentSegment)) cout << "A";
-            else cout << "0";
+            if (isBorder(currentSegment)) cout << "+";
+            else if (isBody(currentSegment)) cout << "D";
+            else if (isApple(currentSegment)) cout << "J";
+            else cout << "o";
         }
         cout << "\n";
     }
