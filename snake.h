@@ -24,7 +24,7 @@ public:
     segment getApple();
     int newApple();
     int nextStep(directions);
-    int drawMap(std::vector<segment>);
+    int drawMap();
 
 
 private:
@@ -37,6 +37,7 @@ private:
     int setHeight(int);
     bool isApple(segment);
     bool isBorder(segment);
+    bool isBody(segment);
 
 };
 

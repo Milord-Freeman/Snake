@@ -6,6 +6,6 @@ using namespace std;
 int main()
 {
     Snake newSnake;
-    newSnake.drawMap(newSnake.getBody());
+    newSnake.drawMap();
     return 0;
 }

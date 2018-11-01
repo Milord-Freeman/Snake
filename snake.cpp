@@ -15,6 +15,7 @@ Snake::Snake()
     startPlace.x = 3;
     startPlace.y = 4;
     body.push_back(startPlace);
+    newApple();
 }
 
 std::vector<Snake::segment> Snake::getBody()
@@ -33,6 +34,15 @@ int Snake::setDirection(Snake::directions dir)
     return 0;
 }
 
+int Snake::newApple()
+{
+    segment nextApple;
+    nextApple.x = 6;
+    nextApple.y = 7;
+    apples.push_back(nextApple);
+    return 0;
+}
+
 int Snake::nextStep(Snake::directions direction)
 {
     segment headPlace = getHead();
@@ -47,7 +57,7 @@ int Snake::nextStep(Snake::directions direction)
 
     if (isBorder(nextPlace)) return 1;
     else if (isApple(nextPlace)) {
-        //TODO: make grow-up.
+        body.insert(body.begin(), nextPlace);
     } else {
         for (auto currentSegment : body){
             segment buffer = currentSegment;
@@ -61,22 +71,17 @@ int Snake::nextStep(Snake::directions direction)
     return 0;
 }
 
-int Snake::drawMap(std::vector<Snake::segment> ourBody)
+int Snake::drawMap()
 {
-    for (int i = 0; i < ourMap.height; i++){
-        for (int j = 0; j < ourMap.widht; j++){
-            if ((i==0) or (j == 0) or
-                (i == ourMap.height - 1) or
-                (j == ourMap.widht - 1)){
-                cout << "1";
-            } else {
-                for (auto seg : ourBody){
-                    if ((seg.x == i) and
-                        (seg.y == j)){
-                        cout << "8";
-                    } else { cout << "0";};
-                }
-            }
+    for (int h = 0; h < ourMap.height; h++){
+        for (int w = 0; w < ourMap.widht; w++){
+            segment currentSegment;
+            currentSegment.x = h;
+            currentSegment.y = w;
+            if (isBorder(currentSegment)) cout << "B";
+            else if (isBody(currentSegment)) cout << "O";
+            else if (isApple(currentSegment)) cout << "A";
+            else cout << "0";
         }
         cout << "\n";
     }
@@ -96,8 +101,13 @@ int Snake::setHeight(int height)
     return 0;
 }
 
-bool Snake::isApple(Snake::segment)
+bool Snake::isApple(Snake::segment currentSegment)
 {
+    for (auto apple : apples){
+        if ((currentSegment.x == apple.x) and (currentSegment.y == apple.y)) {
+            return true;
+        }
+    }
     return false;
 }
 
@@ -107,4 +117,14 @@ bool Snake::isBorder(Snake::segment currentSegment)
         (currentSegment.y == 0) or (currentSegment.y == ourMap.widht)){
         return true;
     } else return false;
+}
+
+bool Snake::isBody(Snake::segment currentSegment)
+{
+    for (auto bodies : getBody()) {
+        if ((bodies.x == currentSegment.x) and (bodies.y == currentSegment.y)){
+            return true;
+        }
+    }
+    return false;
 }
