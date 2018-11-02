@@ -1,6 +1,7 @@
 #include "snake.h"
 #include <iostream>
 #include <vector>
+#include "windows.h" // for system("cls") only
 
 using namespace std;
 
@@ -10,11 +11,13 @@ Snake::Snake()
     setHeight(10);
     setWight(10);
     setDirection(RIGHT);
+    stepCount = 0;
 
     segment startPlace;
     startPlace.x = 3;
     startPlace.y = 4;
     body.push_back(startPlace);
+
     newApple();
 }
 
@@ -26,6 +29,11 @@ std::vector<Snake::segment> Snake::getBody()
 Snake::segment Snake::getHead()
 {
     return body[0];
+}
+
+Snake::directions Snake::getDirection()
+{
+    return direction;
 }
 
 int Snake::setDirection(Snake::directions dir)
@@ -45,6 +53,7 @@ int Snake::newApple()
 
 int Snake::nextStep(Snake::directions direction)
 {
+    stepCount++; // debug
     segment headPlace = getHead();
 
     segment nextPlace = headPlace;
@@ -59,9 +68,9 @@ int Snake::nextStep(Snake::directions direction)
     else if (isApple(nextPlace)) {
         body.insert(body.begin(), nextPlace);
     } else {
-        for (auto currentSegment : body){
-            segment buffer = currentSegment;
-            currentSegment = nextPlace;
+        for (unsigned int i = 0; i < getBody().size(); i++){
+            segment buffer = body[i];
+            body[i] = nextPlace;
             nextPlace = buffer;
         }
     }
@@ -73,14 +82,15 @@ int Snake::nextStep(Snake::directions direction)
 
 int Snake::drawMap()
 {
+    system("cls"); // Clear sreen, windows only. TODO: multiplatform solution.
     for (int h = 0; h <= ourMap.height; h++){
         for (int w = 0; w <= ourMap.widht; w++){
             segment currentSegment;
             currentSegment.x = h;
             currentSegment.y = w;
             if (isBorder(currentSegment)) cout << "+";
-            else if (isBody(currentSegment)) cout << "D";
-            else if (isApple(currentSegment)) cout << "J";
+            else if (isBody(currentSegment)) cout << "O";
+            else if (isApple(currentSegment)) cout << "A";
             else cout << "o";
         }
         cout << "\n";
