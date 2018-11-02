@@ -25,7 +25,7 @@ public:
     int newApple();
     int nextStep(directions);
     int drawMap();
-
+    int stepCount;
 
 private:
     std::vector<segment> body;
