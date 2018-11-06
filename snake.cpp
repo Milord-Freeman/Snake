@@ -92,7 +92,7 @@ int Snake::drawMap()
             if (isBorder(currentSegment)) cout << "+";
             else if (isBody(currentSegment)) cout << "O";
             else if (isApple(currentSegment)) cout << "A";
-            else cout << "o";
+            else cout << " ";
         }
         cout << "\n";
     }
@@ -103,9 +103,8 @@ int Snake::drawMap()
 int Snake::switchDirection()
 {
     if (kbhit()) {
-        int symbol = getch();
-        if ((symbol == 0) or (symbol == 244)) {symbol = getch();} // slice the first symbol;
-        switch (symbol) {
+        //GetAsyncKeyState(125);
+        switch (getch()) {
         case 75: direction = LEFT; break; // LEFT
         case 72: direction = UP; break; // UP
         case 77: direction = RIGHT; break; // RIGHT
