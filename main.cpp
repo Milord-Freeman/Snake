@@ -9,7 +9,7 @@ int main()
 {
     Snake newSnake;
 
-    while(!newSnake.nextStep(newSnake.getDirection())){
+    while(!newSnake.nextStep(newSnake.getDirection()) and !newSnake.switchDirection()){
         newSnake.drawMap();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // sleep 5 sec
     }

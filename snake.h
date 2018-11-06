@@ -26,6 +26,7 @@ public:
     int nextStep(directions);
     int drawMap();
     int stepCount;
+    int switchDirection();
 
 private:
     std::vector<segment> body;

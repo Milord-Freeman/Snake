@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "windows.h" // for system("cls") only
+#include "conio.h" // for kbhit and getch only
 
 using namespace std;
 
@@ -96,6 +97,23 @@ int Snake::drawMap()
         cout << "\n";
     }
 
+    return 0;
+}
+
+int Snake::switchDirection()
+{
+    if (kbhit()) {
+        int symbol = getch();
+        if ((symbol == 0) or (symbol == 244)) {symbol = getch();} // slice the first symbol;
+        switch (symbol) {
+        case 75: direction = LEFT; break; // LEFT
+        case 72: direction = UP; break; // UP
+        case 77: direction = RIGHT; break; // RIGHT
+        case 80: direction = DOWN; break; // DOWN
+        case 27: return 1; // ESC
+        default: break; // OTHER
+        }
+    };
     return 0;
 }
 
