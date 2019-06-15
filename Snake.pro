@@ -5,7 +5,11 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-    snake.cpp
+    snake.cpp \
+    mapdrawer.cpp \
+    cell.cpp
 
 HEADERS += \
-    snake.h
+    snake.h \
+    mapdrawer.h \
+    cell.h
